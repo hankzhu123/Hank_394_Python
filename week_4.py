@@ -52,14 +52,16 @@ offsetRl = []
 offsetGl = []
 offsetBl = []
 
+width = int(widthHeight[0])//2
+
 for i in range(int(int(widthHeight[1])/2)): #here i is which set of rows
     #print("final:",i,i*width*3*2)
-    for j in range(int(widthHeight[0])): # j is which color in that row
+    for j in range(width): # j is which color in that row
         #print(j,i*width*3*2 + 3*j)
-        firstr = i*(int(widthHeight[0]))*3*2 + 3*j
+        firstr = i*(width)*3*2 + 3*j
         firstg = firstr + 1
         firstb = firstr + 2
-        secondr = i*(int(widthHeight[0]))*3*2 + 3*j + 3*(int(widthHeight[0]))
+        secondr = i*(width)*3*2 + 3*j + 3*(width)
         secondg = secondr + 1
         secondb = secondr + 2
         
@@ -94,13 +96,13 @@ count = 0
 count2 = 0
 for i in range(int(widthHeight[1])): 
     if (i % 4 < 2):
-        for ii in range(int(widthHeight[0])):
+        for ii in range(width):
             RGB.append(rr[count])
             RGB.append(gg[count])
             RGB.append(bb[count])
             count += 1
     else:
-        for ii in range(int(widthHeight[0])):
+        for ii in range(width):
             RGB.append(offsetRl[count2])
             RGB.append(offsetGl[count2])
             RGB.append(offsetBl[count2])
