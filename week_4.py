@@ -1,4 +1,4 @@
-ppmFile = open("AveragedWidthWithOffsetsOnTheFarRight.ppm")
+ppmFile = open("balls.ppm")
 
 mgicNO = ppmFile.readline()
 widthHeight = ppmFile.readline()
@@ -39,11 +39,30 @@ for columnCounter in range(0, int(widthHeight[1])): #height x128
     for i in range(s, q):
         newList.append(AvgRGB[i])
     for i in range(s, q):
-        newList.append(offsetRGB[i] + 127.5)
+        newList.append(offsetRGB[i]+127.5) #+127.5
     s += int(widthHeight[0])//2*3
     q += int(widthHeight[0])//2*3
+ 
 
+"""  
+newW = int(widthHeight[0])
+newH = int(widthHeight[1])
+newFFF = open("AveragedWidthWithOffsetsOnTheFarRight_balls.ppm", "w")
+newFFF.write("%s" % (mgicNO))
+newFFF.write("%d %d\n" %(newW, newH))
+newFFF.write(max)
+    
+ii = 0
+while (ii < len(newList)):
+    
+    newFFF.writelines("%d\n" % newList[ii])
+    ii = ii + 1
+    
 
+newFFF.close()
+ppmFile.close()
+
+"""
 rr = []
 bb = []
 gg = []
@@ -52,11 +71,11 @@ offsetRl = []
 offsetGl = []
 offsetBl = []
 
-width = int(widthHeight[0])//2
+width = int(widthHeight[0])
 
 for i in range(int(int(widthHeight[1])/2)): #here i is which set of rows
     #print("final:",i,i*width*3*2)
-    for j in range(width): # j is which color in that row
+    for j in range(int(width)): # j is which color in that row
         #print(j,i*width*3*2 + 3*j)
         firstr = i*(width)*3*2 + 3*j
         firstg = firstr + 1
@@ -69,9 +88,9 @@ for i in range(int(int(widthHeight[1])/2)): #here i is which set of rows
         bl = int((newList[firstb] + newList[secondb])/2)
         gl = int((newList[firstg] + newList[secondg])/2)
         
-        offsetRR = rl - newList[secondr]
-        offsetBB = bl - newList[secondb]
-        offsetGG = gl - newList[secondg]
+        offsetRR = rl - newList[secondr] + 127.5
+        offsetBB = bl - newList[secondb] + 127.5
+        offsetGG = gl - newList[secondg] + 127.5
         
         rr.append(rl)
         bb.append(bl)
@@ -81,44 +100,28 @@ for i in range(int(int(widthHeight[1])/2)): #here i is which set of rows
         offsetGl.append(offsetGG)
         offsetBl.append(offsetBB)
                 
-   
-        
         
         #print (i, j, secondr)
         #print(firstr,firstg,firstb,secondr,secondg,secondb)
        
-#newRGB = [j for i in zip(rr, gg, bb) for j in i] #average between rows 
-#print (offsetRl)
+newRGB = [j for i in zip(rr, gg, bb) for j in i]
+offsetRGB = [j for i in zip(offsetRl, offsetGl, offsetBl) for j in i]
+#print (offsetRl)       
         
-        
-RGB = []
-count = 0
-count2 = 0
-for i in range(int(widthHeight[1])): 
-    if (i % 4 < 2):
-        for ii in range(width):
-            RGB.append(rr[count])
-            RGB.append(gg[count])
-            RGB.append(bb[count])
-            count += 1
-    else:
-        for ii in range(width):
-            RGB.append(offsetRl[count2])
-            RGB.append(offsetGl[count2])
-            RGB.append(offsetBl[count2])
-            count2 += 1
-                
-#print (RGB)
+RGB = newRGB + offsetRGB
+
+#print (rr)
+
 
 newW = int(widthHeight[0])
 newH = int(widthHeight[1])
-newFFF = open("Averaged Height with offsets on the bottom.ppm", "w")
+newFFF = open("AveragedHeightWithOffsetsOnTheBottom_balls.ppm", "w")
 newFFF.write("%s" % (mgicNO))
 newFFF.write("%d %d\n" %(newW, newH))
 newFFF.write(max)
     
 ii = 0
-while (ii < len(RGB)-3):
+while (ii < len(RGB)):
     
     newFFF.writelines("%d\n" % RGB[ii])
     ii = ii + 1
@@ -126,4 +129,3 @@ while (ii < len(RGB)-3):
 
 newFFF.close()
 ppmFile.close()
-
