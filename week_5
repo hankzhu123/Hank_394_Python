@@ -34,9 +34,10 @@ i = 0
 
 for l in range(height//2):
     for z in range(width*3): #rgb
-        q = p[i] - p[fOffset+i] + 127#avg - offset = oddLine#
+        q = p[i] - (p[fOffset+i] - 127)#avg - offset = oddLine#
+        #r = 2*p[i] - q #evenLine#
+        r = p[i] + (p[fOffset+i] - 127)
         oddLine.append(q)
-        r = 2*p[i] - q #evenLine#
         evenLine.append(r)
         i += 1
 
@@ -56,30 +57,41 @@ while(i < height):
             m2 += 1
     if(i % 2 == 0):
         for il in range(width*3):
-            OffsetOnTheRight.append(oddLine[m1])
+            OffsetOnTheRight.append(evenLine[m1])
             m1 += 1
     i +=1        
   
-
 #print (OffsetOnTheRight)
        
         
-fOffset2 = width * 3 // 2 #first offset
+#fOffset2 = width * 3 // 2 #first offset
 
-sOffset2 = fOffset2 + width * 3 #second line of first offset
+#sOffset2 = fOffset2 + width * 3 #second line of first offset
 
 OldPic = []
 firstHalf = []
 secondHalf = []
-
+iop = 0
+print(width,height)
 for asd in range(height):
     for qwe in range(width//2*3):
-        sHalf = OffsetOnTheRight[qwe] - OffsetOnTheRight[qwe+width//2*3] + 127  
-        #get second half of line  
-        fHalf = 2*OffsetOnTheRight[qwe] - sHalf #get first half of line        
-        OldPic.append(fHalf)
-        OldPic.append(sHalf)
-
+        iop = asd*width*3 + qwe
+        sHalf = p[iop] - (p[iop+width//2*3] - 127) #get second half of line  
+        secondHalf.append(sHalf)
+       # fHalf = 2*p[iop] - sHalf #get first half of line   
+        fHalf = p[iop] +  p[iop+width//2*3] - 127
+        firstHalf.append(fHalf)
+        iop += 1
+print("iop",iop)
+wer = 0
+for bnm in range(height):
+    for jkl in range(width//2):
+            for mno in range(3):
+                OldPic.append(firstHalf[wer + mno])
+            for mno in range(3):
+                OldPic.append(secondHalf[wer + mno])
+            wer += 3
+print("wer",wer)
 newW = width
 newH = height
 newFFF = open("OldPic_Balls.ppm", "w")
@@ -96,5 +108,3 @@ while (zxc < len(OldPic)):
 
 newFFF.close()
 ppmFile.close()
-        
-        
