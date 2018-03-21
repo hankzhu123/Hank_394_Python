@@ -76,10 +76,10 @@ print(width,height)
 for asd in range(height):
     for qwe in range(width//2*3):
         iop = asd*width*3 + qwe
-        sHalf = p[iop] - (p[iop+width//2*3] - 127) #get second half of line  
+        sHalf = OffsetOnTheRight[iop] - (OffsetOnTheRight[iop+width//2*3] - 127) #get second half of line  
         secondHalf.append(sHalf)
        # fHalf = 2*p[iop] - sHalf #get first half of line   
-        fHalf = p[iop] +  p[iop+width//2*3] - 127
+        fHalf = OffsetOnTheRight[iop] +  OffsetOnTheRight[iop+width//2*3] - 127
         firstHalf.append(fHalf)
         iop += 1
 print("iop",iop)
