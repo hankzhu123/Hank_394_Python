@@ -76,7 +76,7 @@ newFFF.write("%d %d\n" %(newW, newH))
 newFFF.write(max)
     
 ii = 0
-while (ii < len(newRGB)-3):
+while (ii < len(newRGB)):
     newFFF.writelines("%s\n" % newRGB[ii])
     ii = ii + 1
     
