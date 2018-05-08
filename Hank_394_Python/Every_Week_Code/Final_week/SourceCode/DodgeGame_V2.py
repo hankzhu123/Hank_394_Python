@@ -1,3 +1,10 @@
+#Notations: there are three websites helped me a lots to this project
+########## https://www.pygame.org/docs/    #helped me understand the what is pygame
+########## https://pythonprogramming.net/  #helped me to build buttons, objects, text, and introduction panel
+########## http://programarcadegames.com/python_examples/show_file.php?file=bounce_ball_with_paddle.py   #helped me build the player movement
+########## https://www.pygame.org/docs/ref/music.html   #helped me add sound and other effects
+
+
 import pygame
 import random
 #import time
